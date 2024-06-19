@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import truncateStr from "../utils/truncateStr";
+import { formatNumber } from "../utils/formatNumber";
 
-const Navbar = ({ wallet, updateWallet, showConnectModal }) => {
+const Navbar = ({ wallet, updateWallet, showConnectModal, walletBalance }) => {
   const location = useLocation();
   const { pathname } = location;
 
@@ -24,7 +25,10 @@ const Navbar = ({ wallet, updateWallet, showConnectModal }) => {
           </button>
         </Link>
       </div>
-      <div>
+      <div className="navbar__links">
+        {wallet && (
+          <span className="navbar__balance">{`${formatNumber(walletBalance || 0)} KMOI`}</span>
+        )}
         <button
           className="btn btn--connect"
           onClick={wallet ? () => updateWallet() : () => showConnectModal(true)}

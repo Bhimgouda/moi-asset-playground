@@ -152,6 +152,16 @@ body {
   font-family: var(--font-satoshi-regular);
   background-color: #000;
   color: #ffffffe6;
+  word-wrap: none;
+}
+
+.navbar__balance{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-Satoshi-Black);
+  padding: 0 5px;
+  text-align: center;
 }
 
 .navbar__link--selected{
@@ -193,6 +203,11 @@ body {
     margin: 20px;
     width: 90%;
     left: 0;
+  }
+
+  .navbar{
+    flex-direction: column;
+    row-gap: 10px;
   }
 }
 

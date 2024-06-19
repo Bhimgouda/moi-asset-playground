@@ -5,7 +5,7 @@ import network from "../interface/network";
 import Background from "../components/Background";
 import Popup from "../components/Popup";
 
-const AssetFactory = ({ wallet, showConnectModal }) => {
+const AssetFactory = ({ wallet, showConnectModal, updateWalletBalance }) => {
   const [interacting, setInteracting] = useState(false); // For Loader
   const [ixReceipt, setIxReceipt] = useState(); // For Result
   const [popup, setPopup] = useState(false);
@@ -34,9 +34,14 @@ const AssetFactory = ({ wallet, showConnectModal }) => {
       // Reset
       setSupply("");
       setSymbol("");
+      updateWalletBalance();
     } catch (error) {
-      toastError(error.message);
+      error.message === "insufficient funds"
+        ? toastError("Insufficient funds for fuel")
+        : toastError(error.message);
+
       setInteracting(false);
+      updateWalletBalance();
     }
   };
 

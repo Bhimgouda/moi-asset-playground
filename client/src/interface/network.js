@@ -14,7 +14,7 @@ const CreateAsset = async (wallet, assetStandard, symbol, supply) => {
   const ixResponse = await wallet.sendInteraction({
     type: IxType.ASSET_CREATE,
     fuel_price: 1,
-    fuel_limit: 200,
+    fuel_limit: 100,
     payload,
   });
 
@@ -28,7 +28,7 @@ const TransferAsset = async (wallet, receiver, assetId, amount) => {
   const ixResponse = await wallet.sendInteraction({
     type: IxType.VALUE_TRANSFER,
     fuel_price: 1,
-    fuel_limit: 200,
+    fuel_limit: 100,
     receiver,
     transfer_values: transferValues, // Only Map Type
   });
@@ -50,11 +50,19 @@ const GetAssetInfo = async (asset_id) => {
   return provider.getAssetInfoByAssetID(asset_id);
 };
 
+const GetKmoiBalance = async (address) => {
+  return provider.getBalance(
+    address,
+    "0x000000004cd973c4eb83cdb8870c0de209736270491b7acc99873da1eddced5826c3b548"
+  );
+};
+
 const network = {
   CreateAsset,
   TransferAsset,
   GetAssetInfo,
   GetUsersAsset,
+  GetKmoiBalance,
 };
 
 export default network;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { VoyageProvider, Wallet } from "js-moi-sdk";
 import Navbar from "./components/Navbar";
 import AssetFactory from "./pages/AssetFactory";
@@ -7,12 +7,14 @@ import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import ConnectModal from "./components/ConnectModal";
 import "./styles/App.css";
+import network from "./interface/network";
 
 const provider = new VoyageProvider("babylon");
 
 function App() {
   const [wallet, setWallet] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [walletBalance, setWalletBalance] = useState("");
 
   const updateWallet = (wallet) => {
     setWallet(wallet);
@@ -21,10 +23,26 @@ function App() {
     setIsModalOpen(value);
   };
 
+  useEffect(() => {
+    if (!wallet) return;
+
+    updateWalletBalance();
+  }, [wallet]);
+
+  const updateWalletBalance = async () => {
+    const balance = await network.GetKmoiBalance(wallet.address);
+    setWalletBalance(balance);
+  };
+
   return (
     <div className="app">
       <Toaster />
-      <Navbar wallet={wallet} updateWallet={updateWallet} showConnectModal={showConnectModal} />
+      <Navbar
+        walletBalance={walletBalance}
+        wallet={wallet}
+        updateWallet={updateWallet}
+        showConnectModal={showConnectModal}
+      />
       <ConnectModal
         isModalOpen={isModalOpen}
         showConnectModal={showConnectModal}
@@ -34,11 +52,23 @@ function App() {
       <Routes>
         <Route
           path={"create-asset"}
-          element={<AssetFactory wallet={wallet} showConnectModal={showConnectModal} />}
+          element={
+            <AssetFactory
+              updateWalletBalance={updateWalletBalance}
+              wallet={wallet}
+              showConnectModal={showConnectModal}
+            />
+          }
         />
         <Route
           path={"transfer-asset"}
-          element={<AssetManager wallet={wallet} showConnectModal={showConnectModal} />}
+          element={
+            <AssetManager
+              updateWalletBalance={updateWalletBalance}
+              wallet={wallet}
+              showConnectModal={showConnectModal}
+            />
+          }
         />
         <Route
           path="*" // Redirect to

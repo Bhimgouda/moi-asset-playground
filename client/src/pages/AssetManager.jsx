@@ -10,7 +10,7 @@ import sendImage from "../assets/images/send.png";
 import Popup from "../components/Popup";
 import { ScaleLoader } from "react-spinners";
 
-const AssetManager = ({ wallet, showConnectModal }) => {
+const AssetManager = ({ wallet, showConnectModal, updateWalletBalance }) => {
   const [assets, setAssets] = useState(undefined); // All user assets
   const [interacting, setInteracting] = useState(false); // For loader
   const [ixReceipt, setIxReceipt] = useState(); // For Result
@@ -49,6 +49,7 @@ const AssetManager = ({ wallet, showConnectModal }) => {
       const ixReceipt = await network.TransferAsset(wallet, receiver, assetId, amount);
 
       setInteracting(false);
+      updateWalletBalance();
       setIxReceipt(ixReceipt);
       setPopup(true);
 
@@ -58,8 +59,11 @@ const AssetManager = ({ wallet, showConnectModal }) => {
       setAmount("");
       await getAssets(wallet.getAddress());
     } catch (error) {
-      toast.error(error.message);
+      error.message === "insufficient funds"
+        ? toastError("Insufficient funds for fuel")
+        : toastError(error.message);
       setInteracting(false);
+      updateWalletBalance();
     }
   };
 
