@@ -1,0 +1,230 @@
+@font-face {
+  font-family: "Satoshi-Medium";
+  src: url("../assets/fonts/Satoshi-Medium.woff2") format("woff2"),
+    url("../assets/fonts/Satoshi-Medium.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Satoshi-Black";
+  src: url("../assets/fonts/Satoshi-Black.woff2") format("woff2"),
+    url("../assets/fonts/Satoshi-Black.woff") format("woff");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+:root {
+  --color-dark-grey: #1b1b1b;
+  --color-moi: #4b17e580;
+  --color-moi-full: rgb(75, 23, 229, 0.7);
+
+
+  --font-Satoshi-Black: "Satoshi-Black", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-satoshi-regular: "Satoshi-Medium", sans-serif;
+
+  --font-size-regular: 16px;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
+
+select {
+  width: 100%;
+  color: rgb(255, 255, 255);
+  border: none;
+  outline: none;
+  font-size: var(--font-size-regular);
+  font-family: var(--font-satoshi-regular);
+}
+
+label {
+  font-size: var(--font-size-regular);
+}
+
+.select-wrapper {
+  background-color: var(--color-dark-grey);
+  padding-right: 10px;
+  border-radius: 10px;
+}
+
+body {
+  margin: 0;
+  color: rgb(155, 155, 155);
+  font-family: var(--font-satoshi-regular);
+  position: relative;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  font-size: var(--font-size-regular);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-Satoshi-Black);
+  transition: background-color 0.3s ease;
+}
+
+.btn--moi {
+  padding: 0 10px;
+  height: 60px;
+  border-radius: 10px;
+  color: #ffffffe6;
+  background-color: var(--color-moi);
+  display: flex;
+}
+
+.btn--moi:hover {
+  background-color: var(--color-moi-full);
+}
+
+.btn--connect {
+  font-size: 16px;
+  background-color: var(--color-moi); /* Green color, you can change this */
+  color: #ffffffe6; /* White text, you can change this */
+  border-radius: 5px;
+}
+
+.btn--connect:hover {
+  background-color: var(--color-moi-full); /* Darker green color on hover, you can change this */
+}
+
+@media screen and (max-width: 600px) {
+  .btn--connect{
+    padding: 5px;
+  }
+}
+
+/* Modal */
+.modal__input {
+  width: 100%;
+}
+
+.modal__error {
+  color: red;
+  font-weight: 700;
+}
+
+/* Navbar */
+
+.navbar {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-weight: 700;
+  z-index: 2;
+
+}
+
+.navbar__links{
+  background-color: var(--color-dark-grey);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+}
+
+.navbar__link{
+  cursor: pointer;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: var(--font-size-regular);
+  font-family: var(--font-satoshi-regular);
+  background-color: #000;
+  color: #ffffffe6;
+}
+
+.navbar__link--selected{
+  background-color: var(--color-moi);
+  color: #ffffffe6;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Section */
+.section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background: #000;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.input-area {
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  left: 150px;
+  width: 40%;
+  z-index: 2;
+}
+
+@media screen and (max-width: 600px) {
+  .section {
+    justify-content: center;
+  }
+  .input-area {
+    margin: 20px;
+    width: 90%;
+    left: 0;
+  }
+}
+
+.input-area input {
+  border: none;
+  background: var(--color-dark-grey);
+  outline: none;
+  font-size: 21px;
+  color: rgb(255, 255, 255);
+  font-family: var(--font-satoshi-regular);
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input {
+  -moz-appearance: textfield;
+  font-family: var(--font-satoshi-regular);
+}
+.input-area__box {
+  background: var(--color-dark-grey);
+  padding: 20px 15px;
+  border-radius: 10px;
+  margin-bottom: 2.5px;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-satoshi-regular);
+}
+
+.input-area__box label {
+  margin-bottom: 12px;
+}
+
