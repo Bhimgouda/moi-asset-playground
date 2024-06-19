@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import AssetFactory from "./pages/AssetFactory";
 import AssetManager from "./pages/AssetManager";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ConnectModal from "./components/ConnectModal";
 import "./styles/App.css";
 
@@ -42,7 +42,7 @@ function App() {
         />
         <Route
           path="*" // Redirect to
-          element={<AssetFactory wallet={wallet} showConnectModal={showConnectModal} />}
+          element={<Navigate to="/create-asset" />}
         />
       </Routes>
     </div>
