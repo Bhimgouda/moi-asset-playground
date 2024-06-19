@@ -24,6 +24,9 @@ const Navbar = ({ wallet, updateWallet, showConnectModal, walletBalance }) => {
             Transfer
           </button>
         </Link>
+        <a target="blank" href="https://voyage.moi.technology/faucet/">
+          <button className={`navbar__link`}>Claim Faucet</button>
+        </a>
       </div>
       <div className="navbar__links">
         {wallet && (

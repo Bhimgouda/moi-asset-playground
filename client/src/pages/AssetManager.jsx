@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 import truncateStr from "../utils/truncateStr";
-import { toastError, toastInfo, toastSuccess } from "../utils/toastWrapper";
+import { toastError } from "../utils/toastWrapper";
 import network from "../interface/network";
 import bg from "../styles/bg.module.css";
 import sendImage from "../assets/images/send.png";
@@ -29,12 +29,16 @@ const AssetManager = ({ wallet, showConnectModal, updateWalletBalance }) => {
   }, [wallet]);
 
   const getAssets = async (address) => {
-    let tdu = await network.GetUsersAsset(address);
-    const info = await Promise.all(tdu.map((tdu) => network.GetAssetInfo(tdu.asset_id)));
-    const assetData = tdu.map((tdu, index) => {
-      return { ...tdu, ...info[index] };
-    });
-    setAssets(assetData);
+    try {
+      let tdu = await network.GetUsersAsset(address);
+      const info = await Promise.all(tdu.map((tdu) => network.GetAssetInfo(tdu.asset_id)));
+      const assetData = tdu.map((tdu, index) => {
+        return { ...tdu, ...info[index] };
+      });
+      setAssets(assetData);
+    } catch (e) {
+      setAssets([]);
+    }
   };
 
   const transferAsset = async () => {
@@ -59,9 +63,7 @@ const AssetManager = ({ wallet, showConnectModal, updateWalletBalance }) => {
       setAmount("");
       await getAssets(wallet.getAddress());
     } catch (error) {
-      error.message === "insufficient funds"
-        ? toastError("Insufficient funds for fuel")
-        : toastError(error.message);
+      moiError(error);
       setInteracting(false);
       updateWalletBalance();
     }

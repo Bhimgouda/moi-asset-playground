@@ -50,10 +50,9 @@ const tokens = [
 const Background = ({ assetStandard }) => {
   return (
     <>
-      {assetStandard === "MAS0" ? (
-        <>
-          <div className={bg.blurToken}></div>
-          {tokens.map((token, index) => (
+      <div className={assetStandard === "MAS0" ? bg.blurToken : bg.blurNft}></div>
+      {assetStandard === "MAS0"
+        ? tokens.map((token, index) => (
             <img
               key={index}
               className={`${bg.token} ${bg[token.classNames.split(" ")[0]]} ${
@@ -62,12 +61,8 @@ const Background = ({ assetStandard }) => {
               src={token.src}
               alt={token.alt}
             />
-          ))}
-        </>
-      ) : (
-        <>
-          <div className={bg.blurNft}></div>
-          {nfts.map((nft, index) => (
+          ))
+        : nfts.map((nft, index) => (
             <img
               key={index}
               className={`${bg.nft} ${bg[nft.className]}`}
@@ -75,8 +70,6 @@ const Background = ({ assetStandard }) => {
               alt={nft.alt}
             />
           ))}
-        </>
-      )}
       ;
     </>
   );

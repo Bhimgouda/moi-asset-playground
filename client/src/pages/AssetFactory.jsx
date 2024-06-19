@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Loader from "../components/Loader";
-import { toastError, toastInfo, toastSuccess } from "../utils/toastWrapper";
+import { toastError } from "../utils/toastWrapper";
 import network from "../interface/network";
 import Background from "../components/Background";
 import Popup from "../components/Popup";
+import { moiError } from "../utils/moiError";
 
 const AssetFactory = ({ wallet, showConnectModal, updateWalletBalance }) => {
   const [interacting, setInteracting] = useState(false); // For Loader
@@ -11,7 +12,7 @@ const AssetFactory = ({ wallet, showConnectModal, updateWalletBalance }) => {
   const [popup, setPopup] = useState(false);
 
   // User Inputs
-  const [assetStandard, setAssetStandard] = useState("MAS0");
+  const [assetStandard, setAssetStandard] = useState("MAS1");
   const [symbol, setSymbol] = useState("");
   const [supply, setSupply] = useState("");
 
@@ -36,10 +37,7 @@ const AssetFactory = ({ wallet, showConnectModal, updateWalletBalance }) => {
       setSymbol("");
       updateWalletBalance();
     } catch (error) {
-      error.message === "insufficient funds"
-        ? toastError("Insufficient funds for fuel")
-        : toastError(error.message);
-
+      moiError(error);
       setInteracting(false);
       updateWalletBalance();
     }

@@ -24,7 +24,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (!wallet) return;
+    if (!wallet) return setWalletBalance("");
 
     updateWalletBalance();
   }, [wallet]);
